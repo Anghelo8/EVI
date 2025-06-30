@@ -54,6 +54,10 @@ def splash():
 def llantas():
     return render_template('llantas.html')
 
+@app.route('/accesorios')
+def accesorios():
+    return render_template('accesorios.html')
+
 
 @app.route('/limpieza')
 def limpieza():

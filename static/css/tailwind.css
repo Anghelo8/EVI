@@ -2421,3 +2421,24 @@ video {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
+
+
+
+
+
+
+
+
+.section-gradient {
+    padding-top: 6rem; /* pt-24 */
+    padding-bottom: 3rem; /* pb-12 */
+    background-image: linear-gradient(to right, #7c3aed, #db2777); /* from-purple-600 to-pink-700 */
+    color: white;
+}
+
+
+
+
+
+
+
