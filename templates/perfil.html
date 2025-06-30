@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Perfil - Josesito Enterprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="{{ url_for('static', filename='css/tailwind.css') }}" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Navbar -->
+    {% include '/navbar.html' %}
+
+    <!-- Contenido Principal -->
+    <div class="max-w-5xl mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Mi Perfil</h1>
+
+        <!-- Mensajes flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div
+            class="mb-4 p-4 rounded-lg bg-{{ 'red' if category == 'error' else 'green' }}-100 text-{{ 'red' if category == 'error' else 'green' }}-700">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <!-- Datos del usuario -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Datos Personales</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <p><strong>Nombre:</strong> {{ session.nombre }}</p>
+                <p><strong>Apellidos:</strong> {{ session.apellidos }}</p>
+                <p><strong>Email:</strong> {{ session.email }}</p>
+                <p><strong>Teléfono:</strong> {{ session.telefono | default('No especificado', true) }}</p>
+                <p><strong>Dirección:</strong> {{ session.direccion | default('No especificada', true) }}</p>
+            </div>
+            <div class="mt-6">
+                <a href="{{ url_for('configuracion') }}"
+                    class="inline-block bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded transition">Editar
+                    Perfil</a>
+            </div>
+        </div>
+
+        <!-- Historial de compras -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Historial de Compras</h2>
+            <p class="text-gray-600">Aquí aparecerán tus compras recientes.</p>
+            <ul class="mt-4 space-y-2">
+                <li class="border-b pb-2">Compra #1001 - $299.99 (Llantas deportivas)</li>
+                <li class="border-b pb-2">Compra #1002 - $149.99 (Rines cromados)</li>
+                <li>Compra #1003 - $79.99 (Kit de limpieza premium)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-sm text-gray-500 py-4">
+        &copy; 2024 Josesito Enterprise. Todos los derechos reservados.
+    </footer>
+
+</body>
+
+</html>

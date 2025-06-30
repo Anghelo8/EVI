@@ -1,0 +1,88 @@
+<!-- templates/partials/navbar.html -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-300 shadow-sm">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 relative">
+        <span class="text-2xl font-extrabold tracking-tight text-black select-none">Josesito<span
+                class="text-orange-500">Enterprise</span></span>
+        <button id="menu-btn" class="md:hidden text-black focus:outline-none" aria-label="Abrir menú">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+        <nav id="menu" class="hidden md:flex space-x-8 items-center text-black font-semibold relative">
+            <a href="/index" class="hover:text-orange-500 transition relative group">
+                Inicio
+                <span
+                    class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1.5 bg-orange-500 rounded-full"></span>
+            </a>
+            <div class="dropdown relative group">
+                <button
+                    class="flex items-center space-x-1 hover:text-orange-500 transition focus:outline-none font-semibold">
+                    <span>Productos</span>
+                    <i class="fas fa-chevron-down text-sm mt-0.5"></i>
+                </button>
+                <div class="absolute left-0 mt-2 hidden group-hover:block w-48 bg-white rounded-md shadow-lg z-50 py-1">
+                    <a href="/llantas"
+                        class="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">Llantas</a>
+                    <a href="/rines"
+                        class="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">Rines</a>
+                    <a href="/limpieza"
+                        class="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">Productos de
+                        Limpieza</a>
+                    <a href="/accesorios"
+                        class="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">Accesorios para
+                        Autos</a>
+                </div>
+            </div>
+            <a href="/services" class="hover:text-orange-500 transition">Servicios</a>
+            <a href="/somos" class="hover:text-orange-500 transition">Quiénes Somos</a>
+            <a href="/Horario_y_Ubicacion" class="hover:text-orange-500 transition">Horario y Ubicación</a>
+
+            <!-- Zona de botones / Usuario -->
+            <div class="flex flex-col gap-3 max-w-xs">
+                {% if not session.loggedin %}
+                <!-- Botón de Registro -->
+                <a href="/register"
+                    class="flex items-center justify-between bg-orange-500 text-white font-semibold rounded-full px-6 py-2 transition hover:bg-orange-600">
+                    <span>Registrarse</span>
+                    <span class="bg-red-500 text-white text-sm font-bold px-2 py-1 rounded-full">
+                        15% OFF
+                    </span>
+                </a>
+
+                <!-- Botón de Iniciar Sesión -->
+                <a href="/login"
+                    class="flex items-center justify-center bg-white border border-orange-500 text-orange-500 font-semibold rounded-full px-6 py-2 transition hover:bg-orange-100">
+                    <span>Iniciar Sesión</span>
+                </a>
+                {% else %}
+                <!-- Icono de usuario si está logueado -->
+                <div class="relative group">
+                    <button type="button"
+                        class="flex items-center space-x-2 focus:outline-none bg-orange-100 text-orange-600 px-4 py-2 rounded-full hover:bg-orange-200 transition">
+                        <i class="fas fa-user-circle text-xl"></i>
+                        <span class="hidden sm:inline">{{ session.nombre }}</span>
+                    </button>
+
+                    <!-- Menú desplegable -->
+                    <div
+                        class="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-10">
+                        <div class="p-4 border-b">
+                            <p class="font-semibold text-gray-800">{{ session.nombre }} {{ session.apellidos }}</p>
+                            <p class="text-sm text-gray-500 truncate">{{ session.email }}</p>
+                        </div>
+                        <ul class="py-2">
+                            <li><a href="{{ url_for('perfil') }}"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-100">Perfil</a></li>
+                            <li><a href="{{ url_for('configuracion') }}"
+                                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-100">Configuración</a>
+                            </li>
+                            <li><a href="{{ url_for('logout') }}"
+                                    class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">Cerrar Sesión</a></li>
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </nav>
+    </div>
+</nav>

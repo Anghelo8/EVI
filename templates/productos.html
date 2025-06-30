@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos - Josesito Enterprise</title>
+    <link href="{{ url_for('static', filename='css/tailwind.css') }}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+
+<body class="bg-gray-50 text-gray-900 font-inter">
+    <!-- Menú superior -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-purple-900/95 border-b border-purple-800 shadow-sm">
+        <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+            <span class="text-2xl font-black tracking-tight text-white">Josesito<span class="text-purple-400">Enterprise</span></span>
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="/" class="hover:text-purple-300 transition text-white">Inicio</a>
+                <a href="/productos" class="hover:text-purple-300 transition text-white">Productos</a>
+                <a href="/#servicios" class="hover:text-purple-300 transition text-white">Servicios</a>
+                <a href="/#clientes" class="hover:text-purple-300 transition text-white">Clientes</a>
+                <a href="/#contacto" class="hover:text-purple-300 transition text-white">Contacto</a>
+            </nav>
+            <div class="flex items-center space-x-4">
+                <button id="btnCarrito" class="relative text-white hover:text-purple-300 transition">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="contadorCarrito" class="absolute -top-2 -right-2 bg-purple-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+                </button>
+                <a href="/#contacto" class="ml-6 px-5 py-2 rounded-full bg-purple-600 hover:bg-purple-700 text-white font-bold shadow transition">Solicitar demo</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección de productos -->
+    <section class="pt-32 pb-16 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h1 class="text-4xl font-bold mb-12 text-center text-purple-900">Nuestros Productos</h1>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Llantas -->
+                <div class="producto-card bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                    <img src="https://via.placeholder.com/300x200" alt="Llantas" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2 text-purple-900">Llantas Premium</h3>
+                    <p class="text-gray-600 mb-4">Llantas de alta calidad para todo tipo de vehículos</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-purple-700 font-bold">$299.99</span>
+                        <button class="agregar-carrito px-4 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition" data-id="1" data-nombre="Llantas Premium" data-precio="299.99">
+                            Agregar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Rines -->
+                <div class="producto-card bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                    <img src="https://via.placeholder.com/300x200" alt="Rines" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2 text-purple-900">Rines Deportivos</h3>
+                    <p class="text-gray-600 mb-4">Rines de aleación ligera para máximo rendimiento</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-purple-700 font-bold">$499.99</span>
+                        <button class="agregar-carrito px-4 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition" data-id="2" data-nombre="Rines Deportivos" data-precio="499.99">
+                            Agregar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Accesorios -->
+                <div class="producto-card bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                    <img src="https://via.placeholder.com/300x200" alt="Accesorios" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2 text-purple-900">Kit Accesorios</h3>
+                    <p class="text-gray-600 mb-4">Set completo de accesorios para tu vehículo</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-purple-700 font-bold">$199.99</span>
+                        <button class="agregar-carrito px-4 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition" data-id="3" data-nombre="Kit Accesorios" data-precio="199.99">
+                            Agregar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Limpieza -->
+                <div class="producto-card bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
+                    <img src="https://via.placeholder.com/300x200" alt="Limpieza" class="w-full h-48 object-cover rounded-lg mb-4">
+                    <h3 class="text-xl font-bold mb-2 text-purple-900">Kit Limpieza</h3>
+                    <p class="text-gray-600 mb-4">Productos profesionales para el cuidado de tu auto</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-purple-700 font-bold">$149.99</span>
+                        <button class="agregar-carrito px-4 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition" data-id="4" data-nombre="Kit Limpieza" data-precio="149.99">
+                            Agregar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carrito flotante -->
+    <div id="carrito" class="carrito-flotante hidden">
+        <div class="bg-white rounded-lg shadow-xl p-4 w-80">
+            <h3 class="text-lg font-bold text-purple-900 mb-4">Carrito de Compras</h3>
+            <div id="itemsCarrito" class="space-y-4 mb-4">
+                <!-- Los items se agregarán dinámicamente aquí -->
+            </div>
+            <div class="border-t pt-4">
+                <div class="flex justify-between mb-4">
+                    <span class="font-bold text-purple-900">Total:</span>
+                    <span id="totalCarrito" class="font-bold text-purple-900">$0.00</span>
+                </div>
+                <button id="btnComprar" class="w-full bg-purple-600 text-white py-2 rounded-full hover:bg-purple-700 transition">
+                    Comprar
+                </button>
+            </div>
+        </div>
+    </div>
+<script src = "/static/js/productos.js"></script>
+<script src = "/static/css/productos.css"></script>
+
+</body>
+
+</html> 

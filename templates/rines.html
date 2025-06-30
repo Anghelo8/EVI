@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rines - Josesito Enterprise</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="{{ url_for('static', filename='css/tailwind.css') }}" rel="stylesheet">
+
+</head>
+
+<body class="bg-gray-50 text-gray-900">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-300 shadow-sm">
+        <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+            <a href="/index" class="text-2xl font-extrabold tracking-tight text-black select-none">
+                Josesito<span class="text-orange-500">Enterprise</span>
+            </a>
+
+            <nav class="hidden md:flex space-x-8 items-center text-black font-semibold">
+                <a href="/index" class="hover:text-orange-500 transition">Inicio</a>
+                <a href="/llantas" class="hover:text-orange-500 transition">Llantas</a>
+                <a href="/rines" class="text-orange-500 relative">
+                    Rines
+                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1.5 bg-orange-500 rounded-full"></span>
+                </a>
+                <a href="/limpieza" class="hover:text-orange-500 transition">Limpieza</a>
+                <a href="/accesorios" class="hover:text-orange-500 transition">Accesorios</a>
+            </nav>
+
+            <button id="cart-toggle" class="relative p-2 text-gray-700 hover:text-orange-500 transition">
+                <i class="fas fa-shopping-cart text-xl"></i>
+                <span id="cart-count" class="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-12 bg-gradient-to-r from-blue-600 to-purple-700 text-white">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">Rines Deportivos</h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">Dale estilo y personalidad a tu vehículo</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                    <span class="text-sm opacity-80">Más de</span>
+                    <div class="text-2xl font-bold">300+</div>
+                    <span class="text-sm opacity-80">Diseños</span>
+                </div>
+                <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                    <span class="text-sm opacity-80">Garantía</span>
+                    <div class="text-2xl font-bold">3 años</div>
+                    <span class="text-sm opacity-80">Estructura</span>
+                </div>
+                <div class="bg-white/20 backdrop-blur-sm rounded-lg px-6 py-3">
+                    <span class="text-sm opacity-80">Instalación</span>
+                    <div class="text-2xl font-bold">Gratis</div>
+                    <span class="text-sm opacity-80">Incluida</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <nav class="max-w-7xl mx-auto px-6 py-4 text-sm">
+        <ol class="flex items-center space-x-2 text-gray-500">
+            <li><a href="/index" class="hover:text-orange-500">Inicio</a></li>
+            <li><i class="fas fa-chevron-right text-xs"></i></li>
+            <li class="text-orange-500 font-semibold">Rines</li>
+        </ol>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Sidebar Filters -->
+            <aside class="lg:w-1/4">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-28">
+                    <h3 class="text-xl font-bold mb-6 text-gray-800">Filtros</h3>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Buscar</label>
+                        <div class="relative">
+                            <input type="text" id="search-input" placeholder="Buscar rines..." 
+                                class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
+                            <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Rango de Precio</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="price" value="all" class="text-orange-500 focus:ring-orange-500" checked>
+                                <span class="ml-2 text-sm">Todos los precios</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="price" value="0-500" class="text-orange-500 focus:ring-orange-500">
+                                <span class="ml-2 text-sm">S/ 0 - S/ 500</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="price" value="500-1000" class="text-orange-500 focus:ring-orange-500">
+                                <span class="ml-2 text-sm">S/ 500 - S/ 1000</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="price" value="1000-2000" class="text-orange-500 focus:ring-orange-500">
+                                <span class="ml-2 text-sm">S/ 1000 - S/ 2000</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="price" value="2000+" class="text-orange-500 focus:ring-orange-500">
+                                <span class="ml-2 text-sm">S/ 2000+</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Marca</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="text-orange-500 focus:ring-orange-500" value="bbs">
+                                <span class="ml-2 text-sm">BBS</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="text-orange-500 focus:ring-orange-500" value="oz">
+                                <span class="ml-2 text-sm">OZ Racing</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="text-orange-500 focus:ring-orange-500" value="enkei">
+                                <span class="ml-2 text-sm">Enkei</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="text-orange-500 focus:ring-orange-500" value="rays">
+                                <span class="ml-2 text-sm">Rays</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="text-orange-500 focus:ring-orange-500" value="work">
+                                <span class="ml-2 text-sm">Work</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Tamaño</label>
+                        <select class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
+                            <option value="">Seleccionar tamaño</option>
+                            <option value="15">15"</option>
+                            <option value="16">16"</option>
+                            <option value="17">17"</option>
+                            <option value="18">18"</option>
+                            <option value="19">19"</option>
+                            <option value="20">20"</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Material</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="checkbox" class="text-orange-500 focus:ring-orange-500" value="aluminum">
+                                <span class="ml-2 text-sm">Aluminio</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="text-orange-500 focus:ring-orange-500" value="forged">
+                                <span class="ml-2 text-sm">Forjado</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="checkbox" class="text-orange-500 focus:ring-orange-500" value="carbon">
+                                <span class="ml-2 text-sm">Fibra de Carbono</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button id="clear-filters" class="w-full bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg transition">
+                        Limpiar Filtros
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Products Grid -->
+            <main class="lg:w-3/4">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                    <div class="flex items-center gap-4">
+                        <span class="text-gray-600">Mostrando <span id="results-count">18</span> productos</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <select id="sort-select" class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
+                            <option value="default">Ordenar por</option>
+                            <option value="price-low">Precio: Menor a Mayor</option>
+                            <option value="price-high">Precio: Mayor a Menor</option>
+                            <option value="name">Nombre A-Z</option>
+                            <option value="rating">Mejor Valorados</option>
+                        </select>
+                        <div class="flex border border-gray-300 rounded-lg">
+                            <button id="grid-view" class="p-2 bg-orange-500 text-white rounded-l-lg">
+                                <i class="fas fa-th-large"></i>
+                            </button>
+                            <button id="list-view" class="p-2 bg-gray-200 text-gray-600 rounded-r-lg">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="products-container" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                    <!-- Products will be loaded here -->
+                </div>
+
+                <div class="flex justify-center mt-12">
+                    <nav class="flex items-center space-x-2">
+                        <button class="px-3 py-2 text-gray-500 hover:text-orange-500 disabled:opacity-50" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="px-3 py-2 bg-orange-500 text-white rounded">1</button>
+                        <button class="px-3 py-2 text-gray-700 hover:text-orange-500">2</button>
+                        <button class="px-3 py-2 text-gray-700 hover:text-orange-500">3</button>
+                        <button class="px-3 py-2 text-gray-500 hover:text-orange-500">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </nav>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Product Modal -->
+    <div id="product-modal" class="fixed inset-0 z-50 hidden overflow-y-auto bg-black bg-opacity-50 backdrop-blur-sm">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="relative">
+                    <button id="close-modal" class="absolute top-4 right-4 z-10 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-100 transition">
+                        <i class="fas fa-times text-gray-600"></i>
+                    </button>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 p-8">
+                        <div class="space-y-4">
+                            <div class="aspect-square bg-gray-100 rounded-lg overflow-hidden">
+                                <img id="modal-image" src="/placeholder.svg" alt="" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <h2 id="modal-title" class="text-3xl font-bold text-gray-900 mb-2"></h2>
+                                <div class="flex items-center gap-2 mb-4">
+                                    <div class="flex text-yellow-400">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <span class="text-gray-600">(89 reseñas)</span>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-b border-gray-200 py-4">
+                                <div class="flex items-center gap-4">
+                                    <span id="modal-price" class="text-3xl font-bold text-orange-500"></span>
+                                    <span id="modal-old-price" class="text-xl text-gray-500 line-through"></span>
+                                    <span class="bg-red-100 text-red-800 text-sm font-semibold px-2 py-1 rounded">20% OFF</span>
+                                </div>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-2">Especificaciones:</h4>
+                                    <ul id="modal-specs" class="space-y-1 text-gray-600">
+                                    </ul>
+                                </div>
+
+                                <div class="flex gap-4">
+                                    <button class="flex-1 bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg transition transform hover:scale-105">
+                                        <i class="fas fa-cart-plus mr-2"></i>
+                                        Agregar al Carrito
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between p-6 border-b">
+                <h3 class="text-xl font-bold">Carrito de Compras</h3>
+                <button id="close-cart" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-6">
+                <div id="cart-items" class="space-y-4">
+                    <p class="text-gray-500 text-center py-8">Tu carrito está vacío</p>
+                </div>
+            </div>
+            
+            <div class="border-t p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg font-semibold">Total:</span>
+                    <span id="cart-total" class="text-2xl font-bold text-orange-500">S/ 0.00</span>
+                </div>
+                <button class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 rounded-lg transition">
+                    Proceder al Pago
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Josesito Enterprise</h3>
+                    <p class="text-gray-400 mb-4">Tu tienda de confianza para productos automotrices de calidad.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Productos</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="/llantas" class="hover:text-white">Llantas</a></li>
+                        <li><a href="/rines" class="hover:text-white">Rines</a></li>
+                        <li><a href="/limpieza" class="hover:text-white">Limpieza</a></li>
+                        <li><a href="/accesorios" class="hover:text-white">Accesorios</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Servicio</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Instalación</a></li>
+                        <li><a href="#" class="hover:text-white">Garantía</a></li>
+                        <li><a href="#" class="hover:text-white">Soporte</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Contacto</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fas fa-phone mr-2"></i>+51 999 888 777</li>
+                        <li><i class="fas fa-envelope mr-2"></i>info@josesito.co</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>Av. Principal 123, Lima</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 Josesito Enterprise. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+<script src = "/static/js/rines.js"></script>
+</body>
+</html>

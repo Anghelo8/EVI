@@ -1,0 +1,28 @@
+{
+  "name": "ase242s2_t06-wp-2",
+  "version": "1.0.0",
+  "description": "Anghelo Goicochea\r José Cóndor\r Luciana Ruiz",
+  "main": "postcss.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "postcss src/css/input.css -o static/css/tailwind.css",
+    "watch": "postcss src/css/input.css -o static/css/tailwind.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vallegrande/ASE242S2_T06-wp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vallegrande/ASE242S2_T06-wp/issues"
+  },
+  "homepage": "https://github.com/vallegrande/ASE242S2_T06-wp#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^8.3.1",
+    "tailwindcss": "^3.4.17"
+  }
+}

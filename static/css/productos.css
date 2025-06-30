@@ -1,0 +1,61 @@
+html {
+    scroll-behavior: smooth;
+}
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s cubic-bezier(.4, 0, .2, 1), transform 0.7s cubic-bezier(.4, 0, .2, 1);
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: none;
+}
+
+.carrito-flotante {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+}
+
+.producto-card {
+    transition: transform 0.3s ease;
+}
+
+.producto-card:hover {
+    transform: translateY(-5px);
+}
+
+
+
+
+
+        .curved-left {
+            clip-path: ellipse(110% 100% at 0% 50%);
+        }
+
+        .curved-right {
+            clip-path: ellipse(110% 100% at 100% 50%);
+        }
+
+        .arrow-yellow {
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+        }
+
+        .floating-arrow {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(-15deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(-15deg);
+            }
+        }

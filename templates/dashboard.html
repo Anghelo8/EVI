@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Josesito Enterprise</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/tailwind.css') }}" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Navbar -->
+    <nav class="bg-orange-500 text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold">Josesito Enterprise</h1>
+            <div class="flex items-center space-x-4">
+                <span class="text-sm">Bienvenido, {{ usuario['nombre'] }} {{ usuario['apellidos'] }}</span>
+                <a href="{{ url_for('logout') }}" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-sm">Cerrar
+                    Sesión</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <main class="max-w-7xl mx-auto p-6">
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-2xl font-semibold text-orange-600 mb-4">¡Hola, {{ usuario['nombre'] }}!</h2>
+            <p class="text-gray-700 mb-2">Gracias por ser parte de Josesito Enterprise.</p>
+            <p class="text-gray-700 mb-6">Tus datos están registrados con el correo: <strong>{{ usuario['email']
+                    }}</strong></p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-orange-50 p-4 rounded border border-orange-100">
+                    <h3 class="font-bold text-orange-700">Teléfono:</h3>
+                    <p>{{ usuario['telefono'] }}</p>
+                </div>
+                <div class="bg-orange-50 p-4 rounded border border-orange-100">
+                    <h3 class="font-bold text-orange-700">Dirección:</h3>
+                    <p>{{ usuario['direccion'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Opciones adicionales -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-white p-4 rounded shadow hover:shadow-md transition">
+                <h3 class="font-semibold text-lg mb-2">Perfil</h3>
+                <p class="text-sm text-gray-600">Ver y editar tus datos personales.</p>
+                <a href="#" class="text-orange-500 hover:text-orange-700 text-sm mt-2 inline-block">Ir al perfil →</a>
+            </div>
+            <div class="bg-white p-4 rounded shadow hover:shadow-md transition">
+                <h3 class="font-semibold text-lg mb-2">Configuración</h3>
+                <p class="text-sm text-gray-600">Administra preferencias y notificaciones.</p>
+                <a href="#" class="text-orange-500 hover:text-orange-700 text-sm mt-2 inline-block">Ir a configuración
+                    →</a>
+            </div>
+            <div class="bg-white p-4 rounded shadow hover:shadow-md transition">
+                <h3 class="font-semibold text-lg mb-2">Promociones</h3>
+                <p class="text-sm text-gray-600">Revisa las ofertas exclusivas disponibles para ti.</p>
+                <a href="#" class="text-orange-500 hover:text-orange-700 text-sm mt-2 inline-block">Ver promociones
+                    →</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-10 text-center text-sm text-gray-500 py-4">
+        &copy; 2024 Josesito Enterprise. Todos los derechos reservados.
+    </footer>
+
+</body>
+
+</html>

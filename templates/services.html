@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Josesito Enterprise - Servicios</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="icon" href="/static/img/icons/rueda.png" type="image/png">
+    <link href="{{ url_for('static', filename='css/tailwind.css') }}" rel="stylesheet">
+</head>
+
+<body class="bg-white text-black">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-300 shadow-sm">
+        <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 relative">
+            <span class="text-2xl font-extrabold tracking-tight text-black select-none">Josesito<span
+                    class="text-orange-500">Enterprise</span></span>
+            <nav class="hidden md:flex space-x-8 items-center text-black font-semibold relative">
+
+                <a href="/index" class="hover:text-orange-500 transition relative group">
+                    <span class="group-hover:text-orange-500">Inicio</span>
+                    <span
+                        class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1.5 bg-orange-500 rounded-full"></span>
+                </a>
+
+                <div class="dropdown relative group">
+                    <button
+                        class="flex items-center space-x-1 hover:text-orange-500 transition focus:outline-none font-semibold">
+                        <span>Productos</span>
+                        <i class="fas fa-chevron-down text-sm mt-0.5"></i>
+                    </button>
+                    <div
+                        class="absolute left-0 mt-2 hidden group-hover:block w-48 bg-white rounded-md shadow-lg z-50 py-1">
+                        <a href="/llantas"
+                            class="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">Llantas</a>
+                        <a href="/rines"
+                            class="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">Rines</a>
+                        <a href="/limpieza"
+                            class="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">Productos de
+                            Limpieza</a>
+                        <a href="/accesorios"
+                            class="block px-4 py-2 text-gray-800 hover:bg-orange-500 hover:text-white">Accesorios para
+                            Autos</a>
+                    </div>
+                </div>
+                
+
+                <a href="/services" class="hover:text-orange-500 transition">Servicios</a>
+                <a href="/somos" class="hover:text-orange-500 transition">Quiénes Somos</a>
+                <a href="/Horario_y_Ubicacion" class="hover:text-orange-500 transition">Horario y Ubicaciòn</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="cart-container">
+        <button id="cart-toggle" aria-label="Toggle Cart"
+            class="fixed bottom-4 right-6 z-50 w-16 h-16 bg-orange-500 hover:bg-orange-600 rounded-full flex items-center justify-center shadow-lg transition text-white">
+            <i class="fas fa-shopping-cart text-2xl"></i>
+            <span id="cart-count"
+                class="absolute top-0 right-0 bg-black rounded-full text-sm w-6 h-6 flex items-center justify-center">0</span>
+        </button>
+
+        <div id="cart-panel"
+            class="fixed bottom-20 right-6 w-96 max-h-[500px] bg-white hidden z-50 p-6 rounded-lg shadow-lg border border-gray-300 overflow-y-auto text-black">
+            <h3 class="text-2xl font-semibold mb-6 text-orange-500">Carrito de Compras</h3>
+            <div id="cart" class="min-h-[200px] space-y-4">
+                <p class="text-gray-600 text-lg">No hay productos en el carrito.</p>
+                <div class="cart-item hidden">
+                    <div class="flex items-center space-x-3">
+                        <img src="" alt="" class="w-16 h-16 object-cover rounded-md" />
+                        <div class="flex-1 min-w-0">
+                            <h4 class="text-black text-sm font-medium truncate"></h4>
+                            <p class="text-orange-500 text-sm font-bold"></p>
+                        </div>
+                        <button class="text-red-600 hover:text-red-700 transition p-1">
+                            <i class="fas fa-trash text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-6xl mx-auto px-6 py-16">
+        <div class="container mx-auto px-4 py-16">
+            <h2 class="text-3xl font-bold text-orange-600 mb-8 text-center animate-slide-in">Nuestros Servicios</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div
+                    class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 animate-scale-up">
+                    <img src="https://www.evocars.pe/uploads/shares/servicios/SERVICIODEPARCHE/BANNER_PARA_WEB_SERVICIOS_SERVICIO_DE_PARCHE_960x900.jpg"
+                        alt="Servicio de parchado" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <div class="flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold text-orange-500 mb-2">Parchado de llantas</h3>
+                        <p class="text-gray-600 text-sm mt-2 mb-4">Reparación rápida y segura para pinchazos menores.
+                        </p>
+                        <a href="/register_service"
+                            class="mt-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition-all transform hover:scale-105 shadow-lg hover:shadow-orange-500/50">
+                            Adquirir servicio
+                        </a>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 animate-scale-up">
+                    <img src="https://storage.googleapis.com/sigo-blog-production/2021/09/cambiarunallanta.jpg"
+                        alt="Cambio de llantas" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <div class="flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold text-orange-500 mb-2">Cambio de llantas</h3>
+                        <p class="text-gray-600 text-sm mt-2 mb-4">Instalación profesional de nuevas llantas para mayor
+                            seguridad.</p>
+                        <a href="/register_service"
+                            class="mt-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition-all transform hover:scale-105 shadow-lg hover:shadow-orange-500/50">
+                            Adquirir servicio
+                        </a>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 animate-scale-up">
+                    <img src="https://reencauchadoraelsol.com/wp-content/uploads/2021/07/guardacamara.jpg"
+                        alt="Venta de cámaras" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <div class="flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold text-orange-500 mb-2">Venta de cámaras</h3>
+                        <p class="text-gray-600 text-sm mt-2 mb-4">Disponibilidad de cámaras de alta calidad para motos
+                            y más.</p>
+                        <a href="/register_service"
+                            class="mt-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition-all transform hover:scale-105 shadow-lg hover:shadow-orange-500/50">
+                            Adquirir servicio
+                        </a>
+                    </div>
+                </div>
+
+                <div
+                    class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 animate-scale-up">
+                    <img src="https://img.remediosdigitales.com/cf56f9/650_1000_el-correcto-inflado-de-llantas--3-/1366_2000.jpg"
+                        alt="Inflado de llantas" class="w-full h-48 object-cover rounded-lg mb-4" />
+                    <div class="flex flex-col flex-grow">
+                        <h3 class="text-lg font-semibold text-orange-500 mb-2">Inflado de llantas</h3>
+                        <p class="text-gray-600 text-sm mt-2 mb-4">Revisión de presión e inflado para extender la vida
+                            útil de tus llantas.</p>
+                        <a href="/register_service"
+                            class="mt-auto bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full transition-all transform hover:scale-105 shadow-lg hover:shadow-orange-500/50">
+                            Adquirir servicio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="text-3xl font-extrabold mb-10 text-center text-orange-600">Historial de Servicios</h2>
+            <div id="service-history" class="space-y-4">
+                {% if service_history %}
+                {% for service in service_history %}
+                <div
+                    class="p-4 border border-gray-300 rounded-lg bg-white shadow-md hover:shadow-lg transition text-black">
+                    <div class="flex justify-between items-start">
+                        <h4 class="font-semibold text-orange-500 text-lg">{{ service.type }}</h4>
+                        <p class="text-gray-500">{{ service.date }}</p>
+                    </div>
+                    <p class="mt-2 text-gray-700">{{ service.description }}</p>
+                    <div class="mt-2">
+                        <span class="text-orange-400">Estado: {{ service.status }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+                {% else %}
+                <p class="text-gray-600 text-center">No hay historial de servicios registrado.</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <footer id="contacto" class="bg-black bg-opacity-90 text-white py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <h2 class="text-xl font-bold mb-2">Josesito Enterprise</h2>
+                <p class="text-sm text-gray-300">
+                    Soluciones empresariales modernas y seguras.<br />
+                    Llevamos tu negocio al siguiente nivel.
+                </p>
+            </div>
+            <div>
+                <h2 class="text-lg font-semibold mb-2">Contacto</h2>
+                <ul class="text-sm space-y-1 text-gray-300">
+                    <li>info@josesito.co</li>
+                    <li>+51 999 888 777</li>
+                </ul>
+            </div>
+        </div>
+        <div class="text-center text-gray-400 mt-8 text-xs select-none">
+            © 2024 Josesito Enterprise. Todos los derechos reservados.
+        </div>
+        <div class="flex items-center justify-center md:justify-start space-x-6 mt-4">
+            <a href="https://www.instagram.com/" target="_blank"><img
+                    src="https://cdn-icons-png.flaticon.com/512/174/174855.png" alt="Instagram" class="h-8 w-8"></a>
+            <a href="https://www.facebook.com/" target="_blank"><img
+                    src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" class="h-8 w-8"></a>
+            <a href="https://music.youtube.com/watch?v=n5CJdQIL4I4" target="_blank"><img
+                    src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" class="h-8 w-8"></a>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>
