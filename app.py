@@ -3,11 +3,9 @@ from flask_mysqldb import MySQL
 from flask_mail import Mail, Message
 from werkzeug.security import generate_password_hash, check_password_hash
 
-
 app = Flask(__name__, template_folder='templates', static_folder='static')
 
-# ¡IMPORTANTE: Cambia esto!
-app.secret_key = 'tu_clave_secreta_aqui_para_flash_messages_y_sesiones_seguras'
+app.secret_key = 'tu_clave_secreta_aqui_para_flash_messages_y_sesiones_seguras' # ¡IMPORTANTE: Cambia esto!
 
 # Configuración de Flask-Mail
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
@@ -16,16 +14,16 @@ app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = 'josesitoenterprise880'
 app.config['MAIL_PASSWORD'] = 'mqrn hzaf hojq txyh'
 app.config['MAIL_DEFAULT_SENDER'] = 'josesitoenterprise880'
-app.config['MYSQL_CURSORCLASS'] = 'DictCursor'  # ← Esta es la clave
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor' # ← Esta es la clave
 
 # Inicializa Flask-Mail
 mail = Mail(app)
 
 # Configuración de MySQL (ya la tienes)
-app.config['MYSQL_HOST'] = '127.0.0.1'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'rootpassword'
-app.config['MYSQL_DB'] = 'JosesitoEnterprise'
+app.config['MYSQL_HOST'] = 'database-1.c9e4y28qu4dw.us-east-1.rds.amazonaws.com'
+app.config['MYSQL_USER'] = 'admin'
+app.config['MYSQL_PASSWORD'] = '23032007lu'
+app.config['MYSQL_DB'] = 'dbVulcanizadora'
 
 mysql = MySQL(app)
 
@@ -33,81 +31,53 @@ mysql = MySQL(app)
 # app.py - FORZAR MOSTRAR SPLASH (para testing)
 # app.py - FORZAR MOSTRAR SPLASH (para testing)
 
-
 @app.route('/index')
 def index():
-    if 'loggedin' in session:
-        return render_template('index.html',
-                            nombre=session['nombre'],
-                            apellidos=session['apellidos'],
-                            email=session['email'])
-    else:
-        return render_template('index.html')
-
-
+    return render_template('index.html')
 @app.route('/')
 def splash():
     return render_template('splash.html')
-
-
-@app.route('/llantas')
-def llantas():
-    return render_template('llantas.html')
-
-
-@app.route('/limpieza')
-def limpieza():
-    return render_template('limpieza.html')
-
-
-@app.route('/rines')
-def rines():
-    return render_template('rines.html')
-
 
 @app.route('/somos')
 def somos():
     return render_template('somos.html')
 
-
-@app.route('/services')
+@app.route('/service')
 def service():
-    return render_template('services.html')
-
+    return render_template('service.html')
 
 @app.route('/services')
 def services():
     service_history = [
-        {'type': 'Parchado de llantas', 'date': '2025-05-10',
-            'description': 'Se reparó un pinchazo en la llanta delantera derecha.', 'status': 'Completado'},
-        {'type': 'Cambio de llantas', 'date': '2025-04-25',
-            'description': 'Se instalaron cuatro llantas nuevas.', 'status': 'Completado'},
-        {'type': 'Inflado de llantas', 'date': '2025-05-14',
-            'description': 'Revisión y ajuste de la presión de las cuatro llantas.', 'status': 'Pendiente'}
+        {'type': 'Parchado de llantas', 'date': '2025-05-10', 'description': 'Se reparó un pinchazo en la llanta delantera derecha.', 'status': 'Completado'},
+        {'type': 'Cambio de llantas', 'date': '2025-04-25', 'description': 'Se instalaron cuatro llantas nuevas.', 'status': 'Completado'},
+        {'type': 'Inflado de llantas', 'date': '2025-05-14', 'description': 'Revisión y ajuste de la presión de las cuatro llantas.', 'status': 'Pendiente'}
     ]
     return render_template('services.html', service_history=service_history)
-
 
 @app.route('/formulario')
 def formulario():
     return render_template('formulario.html')
 
-
 @app.route('/carrito')
 def carrito():
     return render_template('carrito.html')
 
-
 @app.route('/productos')
 def productos():
     return render_template('productos.html')
+# Definición de la ruta para el blog
+@app.route('/blog')
+def blog():
+    """
+    Renderiza la página del blog de la vulcanizadora.
+    """
+    return render_template('blog.html')
 
 
 @app.route('/exitoso')
 def exitoso():
     return render_template('exitoso.html')
-
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -119,8 +89,7 @@ def register():
         direccion = request.form.get('direccion')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
-        recibir_promociones = 1 if request.form.get(
-            'recibir_promociones') else 0
+        recibir_promociones = 1 if request.form.get('recibir_promociones') else 0
 
         # Validar campos obligatorios
         if not all([nombre, apellidos, email, telefono, direccion, password, confirm_password]):
@@ -184,13 +153,11 @@ def register():
         try:
             mail.send(msg)
             flash("Registro exitoso. Revisa tu correo.", "success")
-            # Cambia 'exitoso' por tu ruta de éxito
-            return redirect(url_for('exitoso'))
+            return redirect(url_for('exitoso')) # Cambia 'exitoso' por tu ruta de éxito
         except Exception as e:
             flash(f"Error al enviar el correo: {str(e)}", "warning")
 
     return render_template('register.html')
-
 
 @app.route('/payment')
 def payment_form():
@@ -213,23 +180,26 @@ def horario():
 @app.route('/obtener_pagos')
 def obtener_pagos():
     cursor = mysql.connection.cursor()
-    cursor.execute(
-        "SELECT id, metodo_pago, numero_tarjeta, fecha_expiracion, cvv FROM pagos")
+    cursor.execute("SELECT id, metodo_pago, numero_tarjeta, fecha_expiracion, cvv FROM pagos")
     pagos_raw = cursor.fetchall()
     cursor.close()
 
     pagos_formateados = []
     for pago in pagos_raw:
-        card_id = pago[0]
-        metodo_pago = pago[1]
-        numero_completo = pago[2]
-        fecha_expiracion = pago[3]
-        cvv = pago[4]
+        card_id = pago['id'] # Acceder como dict
+        metodo_pago = pago['metodo_pago'] # Acceder como dict
+        numero_completo = pago['numero_tarjeta'] # Acceder como dict
+        fecha_expiracion = pago['fecha_expiracion'] # Acceder como dict
+        cvv = pago['cvv'] # Acceder como dict
 
         ultimos_4_digitos = "XXXX"
         if numero_completo and len(numero_completo) >= 4:
             ultimos_4_digitos = numero_completo[-4:]
-
+        
+        # Aunque el cursor sea DictCursor, los valores devueltos por fetchall son diccionarios,
+        # pero para el jsonify estás construyendo una lista de listas.
+        # Si la plantilla que usa 'obtener_pagos' espera una lista de listas, esto está bien.
+        # Si espera diccionarios, deberías devolver 'pagos_raw' directamente.
         pagos_formateados.append([
             card_id,
             metodo_pago,
@@ -237,15 +207,14 @@ def obtener_pagos():
             fecha_expiracion,
             cvv
         ])
-
+    
     return jsonify(pagos_formateados)
-
 
 @app.route('/payment', methods=['POST'])
 def guardar_pago():
     cursor = mysql.connection.cursor()
     cursor.execute("SELECT COUNT(*) FROM pagos")
-    cantidad = cursor.fetchone()[0]
+    cantidad = cursor.fetchone()['COUNT(*)'] # Acceder como dict, o cursor.fetchone()[0] si no fuera DictCursor
 
     if cantidad >= 2:
         return jsonify({'error': 'Solo se permiten 2 tarjetas registradas'}), 400
@@ -257,7 +226,7 @@ def guardar_pago():
 
     if not all([metodo, numero_completo, expira, cvv]):
         return jsonify({"error": "Faltan datos de la tarjeta para el registro."}), 400
-
+    
     try:
         cursor.execute("INSERT INTO pagos (metodo_pago, numero_tarjeta, fecha_expiracion, cvv) VALUES (%s, %s, %s, %s)",
                        (metodo, numero_completo, expira, cvv))
@@ -268,7 +237,6 @@ def guardar_pago():
         mysql.connection.rollback()
         cursor.close()
         return jsonify({'error': f'Error al registrar tarjeta: {str(e)}'}), 500
-
 
 @app.route('/eliminar_tarjeta/<int:card_id>', methods=['DELETE'])
 def eliminar_tarjeta(card_id):
@@ -285,17 +253,17 @@ def eliminar_tarjeta(card_id):
     finally:
         cursor.close()
 
-
 @app.route('/actualizar_tarjeta/<int:card_id>', methods=['PUT'])
 def actualizar_tarjeta(card_id):
-    metodo = request.form.get('payment-method')
-    numero_completo = request.form.get('card-number')
-    expira = request.form.get('expiry-date')
-    cvv = request.form.get('cvv')
+    # Aquí es importante que los nombres de los request.form coincidan con cómo los envías desde tu JS de actualización
+    metodo = request.form.get('metodo_pago') # Ajustado al nombre de columna/JS común
+    numero_completo = request.form.get('numero_tarjeta') # Ajustado al nombre de columna/JS común
+    expira = request.form.get('fecha_expiracion') # Ajustado al nombre de columna/JS común
+    cvv = request.form.get('cvv') # Ajustado al nombre de columna/JS común
 
     if not all([metodo, numero_completo, expira, cvv]):
         return jsonify({"error": "Faltan datos para actualizar la tarjeta."}), 400
-
+    
     cursor = mysql.connection.cursor()
     try:
         cursor.execute("""
@@ -319,63 +287,58 @@ def actualizar_tarjeta(card_id):
 @app.route('/register_service', methods=['GET', 'POST'])
 def register_service():
     if request.method == 'POST':
-        fecha_servicio = request.form['service-date']
-        vehiculo = request.form['service-vehicle']
-        descripcion = request.form.get('service-description', '')
-        # Valor predeterminado si no se pasa
-        tipo_servicio = request.form.get('service-type', 'General')
+        # ¡CORRECCIÓN AQUÍ! Usar los nombres 'name' de los inputs HTML
+        fecha_servicio = request.form['fecha_servicio'] # Cambiado de 'service-date'
+        vehiculo = request.form['vehiculo']         # Cambiado de 'service-vehicle'
+        descripcion = request.form.get('descripcion', '') # Cambiado de 'service-description'
+        tipo_servicio = request.form.get('tipo_servicio', 'General') # Cambiado de 'service-type'
 
         try:
-            # Convertir la fecha al formato adecuado para MySQL (YYYY-MM-DD)
-            # Asegúrate de que la fecha se envía en un formato que Python pueda parsear
-            # Si el input type="date" lo hace en YYYY-MM-DD, está bien.
-            # fecha_servicio_obj = datetime.datetime.strptime(fecha_servicio, '%Y-%m-%d').date()
-
             cur = mysql.connection.cursor()
             cur.execute("INSERT INTO servicios_registrados (fecha_servicio, vehiculo, descripcion, tipo_servicio) VALUES (%s, %s, %s, %s)",
                         (fecha_servicio, vehiculo, descripcion, tipo_servicio))
             mysql.connection.commit()
             cur.close()
             flash('¡Servicio registrado exitosamente!', 'success')
-            # Redirigir para evitar reenvío
-            return redirect(url_for('register_service'))
+            return redirect(url_for('register_service')) # Redirigir para evitar reenvío
         except Exception as e:
             flash(f'Error al registrar el servicio: {str(e)}', 'danger')
             mysql.connection.rollback()
-
+            # No cierres el cursor aquí si hay un rollback, ya se cerrará en el finally o en el siguiente intento.
+            # cur.close() # Si no se cierra aquí, asegúrate de que se cierre en un finally o se reabra correctamente.
+        
     return render_template('register_service.html')
 
 # --- Ruta Secreta para el Listado de Servicios Registrados (READ) ---
-
-
 @app.route('/admin_servicios_registrados_secreto', methods=['GET'])
 def listado_servicios_secreto():
     cur = mysql.connection.cursor()
-    # Usamos cur.fetchall() que devuelve tuplas por defecto con flask_mysqldb
+    # Gracias a app.config['MYSQL_CURSORCLASS'] = 'DictCursor', fetchall() ya devuelve diccionarios
     cur.execute("SELECT id, fecha_servicio, vehiculo, descripcion, tipo_servicio, fecha_registro FROM servicios_registrados ORDER BY fecha_registro DESC")
-    servicios = cur.fetchall()
+    servicios = cur.fetchall() # Ahora 'servicios' contendrá una lista de diccionarios
     cur.close()
     return render_template('listado_servicios.html', servicios=servicios)
 
 # --- Ruta para Editar Servicio (UPDATE) ---
-
-
 @app.route('/editar_servicio/<int:id>', methods=['GET', 'POST'])
 def editar_servicio(id):
     cur = mysql.connection.cursor()
-
+    
     if request.method == 'POST':
-        fecha_servicio = request.form['service-date']
-        vehiculo = request.form['service-vehicle']
-        descripcion = request.form.get('service-description', '')
-        tipo_servicio = request.form.get('service-type', 'General')
+        # ¡CORRECCIÓN AQUÍ! Usar los nombres 'name' de los inputs HTML del formulario de edición
+        # Recuerda que en editar_servicio.html, se añadió un campo oculto para el ID
+        id_servicio_form = request.form.get('id') # Obtener el ID del campo oculto del formulario
+        fecha_servicio = request.form['fecha_servicio'] # Cambiado de 'service-date'
+        vehiculo = request.form['vehiculo']         # Cambiado de 'service-vehicle'
+        descripcion = request.form.get('descripcion', '') # Cambiado de 'service-description'
+        tipo_servicio = request.form.get('tipo_servicio', 'General') # Cambiado de 'service-type'
 
         try:
             cur.execute("""
                 UPDATE servicios_registrados
                 SET fecha_servicio=%s, vehiculo=%s, descripcion=%s, tipo_servicio=%s
                 WHERE id=%s
-            """, (fecha_servicio, vehiculo, descripcion, tipo_servicio, id))
+            """, (fecha_servicio, vehiculo, descripcion, tipo_servicio, id_servicio_form)) # Usar id_servicio_form
             mysql.connection.commit()
             flash('Servicio actualizado exitosamente!', 'success')
             return redirect(url_for('listado_servicios_secreto'))
@@ -384,22 +347,20 @@ def editar_servicio(id):
             mysql.connection.rollback()
         finally:
             cur.close()
-
-    # Si es GET, o si POST falló, mostrar el formulario de edición
-    cur.execute(
-        "SELECT id, fecha_servicio, vehiculo, descripcion, tipo_servicio FROM servicios_registrados WHERE id = %s", (id,))
-    servicio = cur.fetchone()  # Obtiene un solo registro
+    
+    # Si es GET, o si POST falló (y necesitas recargar el formulario con los datos existentes)
+    cur = mysql.connection.cursor() # Reabrir cursor si se cerró en el try/except de POST
+    cur.execute("SELECT id, fecha_servicio, vehiculo, descripcion, tipo_servicio, fecha_registro FROM servicios_registrados WHERE id = %s", (id,))
+    servicio = cur.fetchone() # Obtiene un solo registro como diccionario gracias a 'DictCursor'
     cur.close()
 
     if not servicio:
         flash('Servicio no encontrado.', 'danger')
         return redirect(url_for('listado_servicios_secreto'))
-
+    
     return render_template('editar_servicio.html', servicio=servicio)
 
 # --- Ruta para Eliminar Servicio (DELETE) ---
-
-
 @app.route('/eliminar_servicio/<int:id>', methods=['POST'])
 def eliminar_servicio(id):
     try:
@@ -418,8 +379,6 @@ def eliminar_servicio(id):
     return redirect(url_for('listado_servicios_secreto'))
 
 # Ruta de Login (ejemplo)
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -449,8 +408,6 @@ def login():
     return render_template('login.html')
 
 # Ejemplo de página protegida
-
-
 @app.route('/dashboard')
 def dashboard():
     if 'loggedin' in session:
@@ -460,13 +417,11 @@ def dashboard():
         flash("Debes iniciar sesión primero", "error")
         return redirect(url_for('login'))
 
-
 @app.route('/perfil')
 def perfil():
     if 'loggedin' in session:
         return render_template('perfil.html', usuario=session)
     return redirect(url_for('login'))
-
 
 @app.route('/configuracion', methods=['GET', 'POST'])
 def configuracion():
@@ -500,13 +455,11 @@ def configuracion():
 
     return render_template('configuracion.html')
 
-
 @app.route('/notificaciones')
 def notificaciones():
     if 'loggedin' in session:
         return render_template('notificaciones.html')
     return redirect(url_for('login'))
-
 
 @app.route('/logout')
 def logout():
@@ -519,7 +472,5 @@ def logout():
     flash("Has cerrado sesión correctamente", "success")
     return redirect(url_for('index'))
 
-
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)   # localhost:5000
-
+    app.run(debug=True, port=5000)

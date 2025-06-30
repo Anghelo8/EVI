@@ -1,3 +1,83 @@
+     tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        orange: {
+                            DEFAULT: '#f97316',
+                            600: '#ea580c'
+                        }
+                    }
+                }
+            }
+        }
+  
+   
+   tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        orange: {
+                            DEFAULT: '#f97316',
+                            600: '#ea580c'
+                        }
+                    }
+                }
+            }
+        }
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                orange: {
+                    DEFAULT: '#f97316',
+                    600: '#ea580c',
+                    700: '#c2410c'
+                },
+                gray: {
+                    100: '#f7fafc',
+                    200: '#edf2f7',
+                    300: '#e2e8f0',
+                    400: '#cbd5e0',
+                    500: '#a0aec0',
+                    600: '#718096',
+                    700: '#4a5568',
+                    800: '#2d3748',
+                    900: '#1a202c',
+                }
+            },
+            animation: {
+                'fade-in': 'fadeIn 0.6s ease-in-out',
+                'slide-in': 'slideIn 0.5s ease-out',
+                'scale-up': 'scaleUp 0.3s ease-out',
+                'bounce-in': 'bounceIn 0.6s ease-out forwards',
+            },
+            keyframes: {
+                fadeIn: {
+                    '0%': { opacity: '0' },
+                    '100%': { opacity: '1' },
+                },
+                slideIn: {
+                    '0%': { transform: 'translateY(20px)', opacity: '0' },
+                    '100%': { transform: 'translateY(0)', opacity: '1' },
+                },
+                scaleUp: {
+                    '0%': { transform: 'scale(0.95)', opacity: '0' },
+                    '100%': { transform: 'scale(1)', opacity: '1' },
+                },
+                bounceIn: {
+                    '0%, 20%, 40%, 60%, 80%, 100%': {
+                        transform: 'translateY(0)',
+                        animationTimingFunction: 'cubic-bezier(0.8, 0, 1, 1)'
+                    },
+                    '50%': {
+                        transform: 'translateY(-10px)',
+                        animationTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)'
+                    }
+                }
+            },
+        },
+    },
+};
 module.exports = {
   content: [
     './templates/**/*.{html,js}',

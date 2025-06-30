@@ -25,27 +25,29 @@
         {% endwith %}
 
         {% if servicio %}
-            <form action="{{ url_for('editar_servicio', id=servicio[0]) }}" method="POST" class="space-y-4">
+            <form action="{{ url_for('editar_servicio', id=servicio.id) }}" method="POST" class="space-y-4">
+                <input type="hidden" name="id" value="{{ servicio.id }}">
+
                 <div>
                     <label for="service-date" class="block text-gray-700 font-semibold mb-1">Fecha</label>
-                    <input type="date" id="service-date" name="service-date" value="{{ servicio[1] }}" required
+                    <input type="date" id="service-date" name="fecha_servicio" value="{{ servicio.fecha_servicio }}" required
                         class="w-full border border-gray-300 rounded px-3 py-2 bg-white text-black focus:outline-none focus:ring-2 focus:ring-orange-500" />
                 </div>
                 <div>
                     <label for="service-vehicle" class="block text-gray-700 font-semibold mb-1">Vehículo</label>
-                    <input type="text" id="service-vehicle" name="service-vehicle" value="{{ servicio[2] }}" required
+                    <input type="text" id="service-vehicle" name="vehiculo" value="{{ servicio.vehiculo }}" required
                         class="w-full border border-gray-300 rounded px-3 py-2 bg-white text-black focus:outline-none focus:ring-2 focus:ring-orange-500"
                         placeholder="Marca y modelo del vehículo" />
                 </div>
                 <div>
                     <label for="service-description" class="block text-gray-700 font-semibold mb-1">Descripción</label>
-                    <textarea id="service-description" name="service-description"
+                    <textarea id="service-description" name="descripcion"
                         class="w-full border border-gray-300 rounded px-3 py-2 bg-white text-black focus:outline-none focus:ring-2 focus:ring-orange-500"
-                        rows="4" placeholder="Detalles del servicio realizado">{{ servicio[3] }}</textarea>
+                        rows="4" placeholder="Detalles del servicio realizado">{{ servicio.descripcion }}</textarea>
                 </div>
                 <div>
                     <label for="service-type" class="block text-gray-700 font-semibold mb-1">Tipo de Servicio</label>
-                    <input type="text" id="service-type" name="service-type" value="{{ servicio[4] }}" 
+                    <input type="text" id="service-type" name="tipo_servicio" value="{{ servicio.tipo_servicio }}" 
                         class="w-full border border-gray-300 rounded px-3 py-2 bg-white text-black focus:outline-none focus:ring-2 focus:ring-orange-500"
                         placeholder="Ej. Parchado de llantas">
                 </div>

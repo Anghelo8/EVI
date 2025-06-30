@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Servicios Registrados</title>
     <link href="{{ url_for('static', filename='css/tailwind.css') }}" rel="stylesheet">
+
 </head>
 <body class="bg-gray-100 p-8">
     <div class="container mx-auto bg-white p-6 rounded-lg shadow-md">
@@ -41,15 +42,15 @@
                     <tbody>
                         {% for servicio in servicios %}
                         <tr>
-                            <td class="py-2 px-4 border-b">{{ servicio[0] }}</td> {# id #}
-                            <td class="py-2 px-4 border-b">{{ servicio[1] }}</td> {# fecha_servicio #}
-                            <td class="py-2 px-4 border-b">{{ servicio[2] }}</td> {# vehiculo #}
-                            <td class="py-2 px-4 border-b">{{ servicio[3] }}</td> {# descripcion #}
-                            <td class="py-2 px-4 border-b">{{ servicio[4] }}</td> {# tipo_servicio #}
-                            <td class="py-2 px-4 border-b">{{ servicio[5] }}</td> {# fecha_registro #}
+                            <td class="py-2 px-4 border-b">{{ servicio.id }}</td> {# id #}
+                            <td class="py-2 px-4 border-b">{{ servicio.fecha_servicio }}</td> {# fecha_servicio #}
+                            <td class="py-2 px-4 border-b">{{ servicio.vehiculo }}</td> {# vehiculo #}
+                            <td class="py-2 px-4 border-b">{{ servicio.descripcion }}</td> {# descripcion #}
+                            <td class="py-2 px-4 border-b">{{ servicio.tipo_servicio }}</td> {# tipo_servicio #}
+                            <td class="py-2 px-4 border-b">{{ servicio.fecha_registro }}</td> {# fecha_registro #}
                             <td class="py-2 px-4 border-b">
-                                <a href="{{ url_for('editar_servicio', id=servicio[0]) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded text-sm mr-2">Editar</a>
-                                <form action="{{ url_for('eliminar_servicio', id=servicio[0]) }}" method="POST" class="inline">
+                                <a href="{{ url_for('editar_servicio', id=servicio.id) }}" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-1 px-3 rounded text-sm mr-2">Editar</a>
+                                <form action="{{ url_for('eliminar_servicio', id=servicio.id) }}" method="POST" class="inline">
                                     <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-3 rounded text-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar este servicio?')">Eliminar</button>
                                 </form>
                             </td>
@@ -71,5 +72,6 @@
             </a>
         </div>
     </div>
+         <script src="{{ url_for('static', filename='js/tailwind.config.js') }}"></script>
 </body>
 </html>

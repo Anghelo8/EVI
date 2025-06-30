@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>¿Quiénes somos? - Josesito Enterprise</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-    <link href="{{ url_for('static', filename='css/tailwind.css') }}" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+  <link href="{{ url_for('static', filename='css/admin_review.css') }}" rel="stylesheet">
 
 </head>
 
@@ -17,13 +17,11 @@
             <span class="text-2xl font-extrabold tracking-tight text-black select-none">Josesito<span
                     class="text-orange-500">Enterprise</span></span>
             <nav class="hidden md:flex space-x-8 items-center text-black font-semibold relative">
-
                 <a href="/index" class="hover:text-orange-500 transition relative group">
                     <span class="group-hover:text-orange-500">Inicio</span>
                     <span
                         class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1.5 bg-orange-500 rounded-full"></span>
                 </a>
-
                 <div class="dropdown relative group">
                     <button
                         class="flex items-center space-x-1 hover:text-orange-500 transition focus:outline-none font-semibold">
@@ -44,10 +42,9 @@
                             Autos</a>
                     </div>
                 </div>
-
                 <a href="/services" class="hover:text-orange-500 transition">Servicios</a>
                 <a href="/somos" class="hover:text-orange-500 transition">Quiénes Somos</a>
-                <a href="/Horario_y_Ubicacion" class="hover:text-orange-500 transition">Horario y Ubicaciòn</a>
+                <a href="/Horario_y_Ubicacion" class="hover:text-orange-500 transition">Horario y Ubicación</a>
             </nav>
         </div>
     </header>
@@ -59,37 +56,69 @@
             <span id="cart-count"
                 class="absolute top-0 right-0 bg-black rounded-full text-sm w-6 h-6 flex items-center justify-center">0</span>
         </button>
-
         <div id="cart-panel"
             class="fixed bottom-20 right-6 w-96 max-h-[500px] bg-white hidden z-50 p-6 rounded-lg shadow-lg border border-gray-300 overflow-y-auto text-black">
             <h3 class="text-2xl font-semibold mb-6 text-orange-500">Carrito de Compras</h3>
             <div id="cart" class="min-h-[200px] space-y-4">
                 <p class="text-gray-600 text-lg">No hay productos en el carrito.</p>
-                <div class="cart-item hidden">
-                    <div class="flex items-center space-x-3">
-                        <img src="" alt="" class="w-16 h-16 object-cover rounded-md" />
-                        <div class="flex-1 min-w-0">
-                            <h4 class="text-black text-sm font-medium truncate"></h4>
-                            <p class="text-orange-500 text-sm font-bold"></p>
-                        </div>
-                        <button class="text-red-600 hover:text-red-700 transition p-1">
-                            <i class="fas fa-trash text-sm"></i>
-                        </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chatbot -->
+    <div class="fixed bottom-4 left-6 z-50">
+        <!-- Chat Button -->
+        <button id="chat-toggle"
+            class="w-16 h-16 bg-orange-500 hover:bg-orange-600 rounded-full flex items-center justify-center shadow-lg transition text-white mb-4">
+            <i id="chat-icon" class="fas fa-comments text-2xl"></i>
+        </button>
+
+        <!-- Chat Panel -->
+        <div id="chat-panel"
+            class="w-80 h-96 bg-white rounded-lg shadow-xl border border-gray-300 transition-all duration-300 opacity-0 translate-y-4 pointer-events-none">
+            <!-- Chat Header -->
+            <div class="bg-orange-500 text-white p-4 rounded-t-lg">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-white bg-opacity-20 rounded-full flex items-center justify-center">
+                        <i class="fas fa-robot text-sm"></i>
                     </div>
+                    <div>
+                        <h3 class="font-semibold">Asistente Josesito</h3>
+                        <p class="text-xs opacity-90">En línea</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Messages -->
+            <div id="chat-messages" class="h-64 overflow-y-auto p-4 space-y-3 chat-messages">
+                <div class="flex justify-start">
+                    <div class="max-w-xs px-3 py-2 rounded-lg text-sm bg-gray-100 text-gray-800 chat-message">
+                        ¡Hola! Soy el asistente virtual de Josesito Enterprise. ¿En qué puedo ayudarte hoy?
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="p-4 border-t border-gray-200">
+                <div class="flex space-x-2">
+                    <input type="text" id="chat-input" placeholder="Escribe tu mensaje..."
+                        class="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-sm">
+                    <button id="send-message"
+                        class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-2 rounded-lg transition">
+                        <i class="fas fa-paper-plane text-sm"></i>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <section id="quienes-somos" class="py-20 px-6 bg-gray-100">
-
+    <section id="quienes-somos" class="py-20 px-6 bg-gray-100 mt-20">
         <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
-
             <div
                 class="relative w-full overflow-hidden rounded-3xl border-4 border-orange-500 shadow-[0_10px_25px_rgba(249,115,22,0.3)]">
                 <div id="carousel" class="relative h-72 md:h-80">
                     <div class="carousel-item absolute inset-0 opacity-100 transition-opacity duration-600 ease-in-out">
-                        <img src="https://saucesysantin.com/wp-content/uploads/2024/06/vulcanizadora-leon-2-1.jpg?w=532"
+                        <img src="https://i.ytimg.com/vi/lTg0-dVZekc/maxresdefault.jpg"
                             class="w-full h-full object-cover rounded-2xl" alt="Imagen 1 Vulcanizadora" />
                     </div>
                     <div class="carousel-item absolute inset-0 opacity-0 transition-opacity duration-600 ease-in-out">
@@ -101,7 +130,6 @@
                             class="w-full h-full object-cover rounded-2xl" alt="Imagen 3 Vulcanizadora" />
                     </div>
                 </div>
-
                 <button id="prev"
                     class="absolute left-3 top-1/2 transform -translate-y-1/2 bg-orange-500 text-white p-2 rounded-full hover:bg-orange-400 shadow-md transition">
                     ❮
@@ -139,9 +167,7 @@
                         </p>
                     </div>
                 </div>
-
             </div>
-
         </div>
 
         <div class="max-w-7xl mx-auto px-6 mt-20">
@@ -150,7 +176,6 @@
                 <h2 class="text-4xl font-extrabold text-center text-gray-900 mb-6">
                     Nuestros Clientes Opinan
                 </h2>
-
                 <div id="global-rating-stars"
                     class="flex items-center justify-center space-x-2 text-yellow-500 text-3xl mb-4 opacity-0 scale-75 transition-all duration-1000 ease-out delay-300">
                     <i class="fas fa-star"></i>
@@ -182,7 +207,6 @@
                                         <h4 class="font-semibold text-gray-900">Juan Álvarez</h4>
                                         <p class="text-sm text-gray-500">Hace 3 días</p>
                                     </div>
-
                                 </div>
                                 <div class="flex text-yellow-500 mb-4">
                                     <i class="fas fa-star"></i>
@@ -254,125 +278,6 @@
                                 </p>
                             </div>
                             <a href="#" class="text-blue-600 hover:underline text-sm font-semibold">Ver más</a>
-                        </div>
-                    </div>
-
-                    <div class="review-card flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-4">
-                        <div class="bg-white rounded-lg shadow-lg p-6 h-full flex flex-col justify-between">
-                            <div>
-                                <div class="flex items-center mb-4">
-                                    <div
-                                        class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white text-xl font-bold mr-4">
-                                        LS
-                                    </div>
-                                    <div>
-                                        <h4 class="font-semibold text-gray-900">Luisa Soto</h4>
-                                        <p class="text-sm text-gray-500">Hace 1 mes</p>
-                                    </div>
-
-                                </div>
-                                <div class="flex text-yellow-500 mb-4">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                </div>
-                                <p class="text-gray-700 mb-4">
-                                    "El mejor lugar para encontrar cámaras para mi bicicleta. Tienen variedad y el
-                                    personal me ayudó a elegir la correcta. ¡Volveré!"
-                                </p>
-                            </div>
-                            <a href="#" class="text-blue-600 hover:underline text-sm font-semibold">Ver más</a>
-                        </div>
-                    </div>
-
-                    <div class="review-card flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-4">
-                        <div class="bg-white rounded-lg shadow-lg p-6 h-full flex flex-col justify-between">
-                            <div>
-                                <div class="flex items-center mb-4">
-                                    <img src="https://www.shutterstock.com/image-photo/portrait-smiling-farmer-guinea-pig-260nw-2196442731.jpg"
-                                        alt="Foto de perfil de Roberto"
-                                        class="w-12 h-12 rounded-full mr-4 object-cover" />
-                                    <div>
-                                        <h4 class="font-semibold text-gray-900">Roberto Flores</h4>
-                                        <p class="text-sm text-gray-500">Hace 2 meses</p>
-                                    </div>
-
-                                </div>
-                                <div class="flex text-yellow-500 mb-4">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <p class="text-gray-700 mb-4">
-                                    "Servicio de alineación y balanceo de primera. Mi auto se siente como nuevo. Los
-                                    recomiendo al 100% por su experiencia."
-                                </p>
-                            </div>
-                            <a href="#" class="text-blue-600 hover:underline text-sm font-semibold">Ver más</a>
-                        </div>
-                    </div>
-
-                    <div class="review-card flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-4">
-                        <div class="bg-white rounded-lg shadow-lg p-6 h-full flex flex-col justify-between">
-                            <div>
-                                <div class="flex items-center mb-4">
-                                    <div
-                                        class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white text-xl font-bold mr-4">
-                                        AN
-                                    </div>
-                                    <div>
-                                        <h4 class="font-semibold text-gray-900">Ana Núñez</h4>
-                                        <p class="text-sm text-gray-500">Hace 3 meses</p>
-                                    </div>
-                                </div>
-                                <div class="flex text-yellow-500 mb-4">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="far fa-star"></i>
-                                </div>
-                                <p class="text-gray-700 mb-4">
-                                    "Precios justos y un trabajo bien hecho. La vulcanizadora Josesito siempre me saca
-                                    de apuros. ¡Son los mejores en la zona!"
-                                </p>
-                            </div>
-                            <a href="#" class="text-blue-600 hover:underline text-sm font-semibold">Ver más</a>
-                        </div>
-                    </div>
-
-                    <div class="review-card flex-shrink-0 w-full md:w-1/2 lg:w-1/3 p-4">
-                        <div
-                            class="bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg shadow-lg p-6 h-full flex flex-col justify-between text-gray-800">
-                            <div>
-                                <h3 class="font-bold text-2xl mb-4">Resumen de Opiniones</h3>
-                                <p class="mb-6">
-                                    Josesito.co recibe reseñas abrumadoramente positivas por su servicio rápido,
-                                    atención al cliente excepcional y la calidad de sus productos y reparaciones.
-                                </p>
-                                <div class="flex items-center justify-center -space-x-2 mb-6">
-                                    <img src="https://thumbs.dreamstime.com/b/persona-peruana-de-latina-93128354.jpg"
-                                        alt="Avatar 1"
-                                        class="w-10 h-10 rounded-full border-2 border-white object-cover">
-                                    <img src="https://media.gettyimages.com/id/1360822623/es/foto/retrato-de-un-hombre-joven-al-aire-libre.jpg?s=612x612&w=gi&k=20&c=AOaWbHc1UfRzxsCC9Izf4XUvDcKM0AZ1eQ0gIyd_b8E="
-                                        alt="Avatar 2"
-                                        class="w-10 h-10 rounded-full border-2 border-white object-cover">
-                                    <img src="https://media.istockphoto.com/id/864520802/es/foto/retrato-de-un-sonriente-joven-de-am%C3%A9rica-latina-con-una-chaqueta-de-ante-marr%C3%B3n-disparos.jpg?s=612x612&w=0&k=20&c=pFNlOQu-hA1Z9MXS0_6hQGwrnJoldmX-H5tZ9Fjzl_E="" alt="
-                                        Avatar 3" class="w-10 h-10 rounded-full border-2 border-white object-cover">
-                                    <div
-                                        class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 font-semibold text-sm border-2 border-white">
-                                        +<span id="additional-avatars-count"></span>
-                                    </div>
-                                </div>
-                                <p class="text-center text-sm text-gray-600">
-                                    Basado en <span id="social-proof-reviews-count">50</span> reseñas de clientes.
-                                </p>
-                            </div>
-
                         </div>
                     </div>
                 </div>
@@ -447,7 +352,6 @@
         </div>
     </footer>
 
-    <script src="/static/js/somos_carrusel.js"></script>
+   <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
 </body>
-
 </html>
